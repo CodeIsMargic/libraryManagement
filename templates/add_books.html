@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="box">
+    <h1>Add Books to the Collection</h1>
+    {% for message in get_flashed_messages() %}
+        <p style="color:green;">{{ message }}</p>
+    {% endfor %}
+    <form action="{{ url_for('add_books') }}" method="post">
+        <input type="text" name="book_title" placeholder="Title" required="required"/>
+        <input type="text" name="author" placeholder="Book Author" required="required"/>
+        <input type="number" name="quantity" placeholder="Quantities" required="required"/>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Submit Entry.</button>
+    </form>
+</div>
+
+{% endblock %}
