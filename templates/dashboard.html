@@ -5,6 +5,8 @@
   <h1 class="title">Welcome, {{name}}!</h1>
   {% if current_user.id == 1 %}
     <a href="{{url_for('add_books')}}">Add Books</a>
+  <a href="{{url_for('books')}}">View All Books</a>
+
   {% else %}
     <a href="{{url_for('books')}}">Borrow Books</a>
     <br>
