@@ -118,8 +118,7 @@ def home():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    name = request.args.get("name")
-    return render_template("dashboard.html", name=name, logged_in=True, current_user=current_user)
+    return render_template("dashboard.html", logged_in=True, current_user=current_user)
 
 
 @app.route('/login', methods=["GET", "POST"])
