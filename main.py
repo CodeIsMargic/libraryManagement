@@ -11,7 +11,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 
 app = Flask(__name__)
 app.app_context().push()
-
+# app.config['SECRET_KEY'] = 'Ajasco1759'
 app.config['SECRET_KEY'] = 'FStrT9gpuleeKaFFAzMQf34F4SSp8cM5'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://library_management_database_user:FStrT9gpuleeKaFFAzMQf34F4SSp8cM5@dpg-cg3nofl269vfhl0ceoo0-a/library_management_database'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -118,7 +118,7 @@ def home():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template("dashboard.html", logged_in=True, current_user=current_user)
+    return render_template("dashboard.html", logged_in=True)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -130,7 +130,7 @@ def login():
         if user:
             if check_password_hash(user.password, user_pass):
                 login_user(user)
-                return redirect(url_for("dashboard", name=user.name))
+                return redirect(url_for("dashboard"))
             else:
                 flash("Password is incorrect. Please try again")
         else:
@@ -188,7 +188,7 @@ def borrow(book_id):
     )
     db.session.add(new_borrowed_book)
     db.session.commit()
-    return redirect(url_for("dashboard", name=name, current_user=current_user))
+    return redirect(url_for("dashboard"))
 
 
 @app.route("/return/<int:book_id>", methods=["POST", "GET"])
@@ -199,14 +199,13 @@ def return_book(book_id):
     book_returned.quantity += 1
     db.session.delete(book_to_return)
     db.session.commit()
-    return redirect(url_for("dashboard", name=name, current_user=current_user))
+    return redirect(url_for("dashboard"))
 
 
 @app.route("/borrowed-books", methods=["POST", "GET"])
 def book_borrowed():
-    global NO_BOOK
     borrowed_books = db.session.query(Borrowed).all()
-    return render_template("borrowed_books.html", borrowed_books=borrowed_books, current_user=current_user, logged_in=current_user.is_authenticated)
+    return render_template("borrowed_books.html", borrowed_books=borrowed_books, logged_in=current_user.is_authenticated)
 
 
 @app.route('/logout')

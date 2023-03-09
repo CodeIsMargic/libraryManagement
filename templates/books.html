@@ -4,7 +4,10 @@
 <div class="container">
   <h1 class="title">List of our available books</h1>
   {% for book in all_books %}
-    {% if book.quantity == 0 %}
+    {% if current_user.id == 1 %}
+    <br>
+    <a href="#" class="cta-btn">{{book.title}} By {{book.author}} | ({{book.quantity}})</a>
+    {% elif book.quantity == 0 %}
         <a href="#" style="color:red;" class="cta-btn">{{book.title}} By {{book.author}} | ({{book.quantity}}) | Book currently out of stock</a>
         <br>
     {% else %}

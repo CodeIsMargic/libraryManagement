@@ -10,9 +10,6 @@
       {% if current_user.id == book.user_id %}
         <br>
         <a href="{{url_for('return_book', book_id=book.id)}}" class="cta-btn">{{book.title}} </a>
-<!--      {% elif current_user.id != book.user_id %}-->
-<!--      <p>No Books Borrowed Yet</p>-->
-<!--  <a href="{{url_for('borrow', book_id=book.id)}}" class="cta-btn">{{book.title}} By {{book.author}} | ({{book.quantity}})</a>-->
       {% endif %}
     {% endfor %}
 </div>
